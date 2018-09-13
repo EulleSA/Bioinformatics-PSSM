@@ -32,16 +32,31 @@ def main():
 	# Transformando a lista em array numpy e fazendo a transporta do array.
 	array_seq2 = np.array(list_seq2)
 	array_seq2 = array_seq2.transpose()
-#	print(array_seq2)
-
+	
+	print(array_seq2)
+	
 	aminoacid = dict.fromkeys(keys,0)
 
-	for index,letter in enumerate(array_seq2):
-		print(letter[4])
-#		print(index)
-		aminoacid[letter[4]] = aminoacid[letter[4]] + 1
+	newDF = pd.DataFrame()
+	M = []
 
-	print(aminoacid)
+	for i in range(len(array_seq2)):
+		aminoacid = dict.fromkeys(keys, 0)
+		for j in range(len(array_seq2[i])):
+		 	aminoacid[array_seq2[i,j]] = aminoacid[array_seq2[i, j]] + 1
+		newDF = pd.DataFrame(aminoacid)
+		
 
+	# Dicionario dentro de dataFrame ?
+		
+		#print(newDF)
+		#M.append(df1)
+		#print(aminoacid)
+		#newDF = pd.concat(aminoacid)
+
+	#print(M)
+	#newDF = pd.concat(M)
+	#print(aminoacid)
+	
 if __name__ == "__main__":
 	main()

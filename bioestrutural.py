@@ -47,11 +47,10 @@ def main():
 		for j in range(len(array_seq2[i])):
 		 	aminoacid[array_seq2[i,j]] = aminoacid[array_seq2[i, j]] + 1
 
-		pfm[i] = [x/10 for x in list(aminoacid.values())]
+		pfm[i] = [math.log(((x/10)/0.05),2) if x != 0 else 0 for x in list(aminoacid.values()) ]
 		
 		#pfm[i] = [math.log((x/10)/0.05,2) for x in list(aminoacid.values()) if x != 0]
 
-		
 
 	print(pfm)
 		

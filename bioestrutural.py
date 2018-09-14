@@ -8,20 +8,10 @@ import math
 global keys
 keys = ['A','R','N','D','C','Q','E','G','H','I','L','K','M','F','P','S','T','W','Y','V','B','Z'] 
 
-def PSSMsCalculate():
-	print("função para calcular a matrix pssm")
-
-def main():
-
-	parser = argparse.ArgumentParser(description="BioInformatica Estrutural PSSMs - version(0.0.1)")
-	parser.add_argument("-f","--file", 	dest="file", nargs="?", required=True, help="Arquivo que contem a sequencia")
-	args = parser.parse_args()
-
-	fh = open(args.file,'r')
-	line = fh.read()
+def PSSMsCalculate(seq):
 
 	# Armazenar sequências em listas 
-	list_seq = line.split('\n')
+	list_seq = seq.split('\n')
 	list_seq2 = []
 	for ii in list_seq:
 		list_seq2.append(list(ii))
@@ -48,24 +38,23 @@ def main():
 		 	aminoacid[array_seq2[i,j]] = aminoacid[array_seq2[i, j]] + 1
 
 		pfm[i] = [math.log(((x/10)/0.05),2) if x != 0 else 0 for x in list(aminoacid.values()) ]
-		
-		#pfm[i] = [math.log((x/10)/0.05,2) for x in list(aminoacid.values()) if x != 0]
-
-
-	print(pfm)
-		
 	
+	return pfm
+	#print("função para calcular a matrix pssm")
 
-	# Dicionario dentro de dataFrame ?
-		
-		#print(newDF)
-		#M.append(df1)
-		#print(aminoacid)
-		#newDF = pd.concat(aminoacid)
 
-	#print(M)
-	#newDF = pd.concat(M)
-	#print(aminoacid)
+def main():
+
+	parser = argparse.ArgumentParser(description="BioInformatica Estrutural PSSMs - version(0.0.1)")
+	parser.add_argument("-f","--file", 	dest="file", nargs="?", required=True, help="Arquivo que contem a sequencia")
+	args = parser.parse_args()
+
+	fh = open(args.file,'r')
+	line = fh.read()
+
+	resultado = PSSMsCalculate(line)
+	print(resultado)
+	
 	
 if __name__ == "__main__":
 	main()

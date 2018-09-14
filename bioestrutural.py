@@ -3,7 +3,7 @@
 import numpy as np 
 import pandas as pd 
 import os, argparse
-
+import math
 # Criar uma lista com as letras do dicionario e armazenar o valor 
 global keys
 keys = ['A','R','N','D','C','Q','E','G','H','I','L','K','M','F','P','S','T','W','Y','V','B','Z'] 
@@ -37,15 +37,25 @@ def main():
 	
 	aminoacid = dict.fromkeys(keys,0)
 
-	newDF = pd.DataFrame()
-	M = []
+	pfm = pd.DataFrame(data=[],index=keys,columns=[])
+	#print(newDF)
+	#M = []
 
 	for i in range(len(array_seq2)):
+		#print(aminoacid)
 		aminoacid = dict.fromkeys(keys, 0)
 		for j in range(len(array_seq2[i])):
 		 	aminoacid[array_seq2[i,j]] = aminoacid[array_seq2[i, j]] + 1
-		newDF = pd.DataFrame(aminoacid)
+
+		pfm[i] = [x/10 for x in list(aminoacid.values())]
 		
+		#pfm[i] = [math.log((x/10)/0.05,2) for x in list(aminoacid.values()) if x != 0]
+
+		
+
+	print(pfm)
+		
+	
 
 	# Dicionario dentro de dataFrame ?
 		

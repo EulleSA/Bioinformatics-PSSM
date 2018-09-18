@@ -1,12 +1,23 @@
-#/bin/envs python
+#/bin/envs python3
 #-*- encoding: utf-8 -*-
-import numpy as np 
-import pandas as pd 
-import os, argparse
-import math
+
+try:
+	import numpy as np
+except ImportError:
+	raise ImportError("pip3 install numpy")
+
+try:
+	import pandas as pd 
+except ImportError:
+	raise ImportError("pip3 install pandas")
+
+import os, argparse, math
+from decimal import Decimal
+
 # Criar uma lista com as letras do dicionario e armazenar o valor 
 global keys
-keys = ['A','R','N','D','C','Q','E','G','H','I','L','K','M','F','P','S','T','W','Y','V','B','Z'] 
+#keys = ['A', 'T', 'C', 'G']
+keys = ['A','R','N','D','C','Q','E','G','H','I','L','K','M','F','P','S','T','W','Y','V','B','Z', '-'] 
 
 def PSSMsCalculate(seq):
 
@@ -23,7 +34,7 @@ def PSSMsCalculate(seq):
 	array_seq2 = np.array(list_seq2)
 	array_seq2 = array_seq2.transpose()
 	
-	print(array_seq2)
+	#print(array_seq2)
 	
 	aminoacid = dict.fromkeys(keys,0)
 
@@ -37,11 +48,9 @@ def PSSMsCalculate(seq):
 		for j in range(len(array_seq2[i])):
 		 	aminoacid[array_seq2[i,j]] = aminoacid[array_seq2[i, j]] + 1
 
-		pfm[i] = [math.log(((x/10)/0.05),2) if x != 0 else 0 for x in list(aminoacid.values()) ]
+		pfm[i] = [round(math.log(((x/10)/0.05),2), 2) if (x != 0 or x == '-')  else 'NaN' for x in list(aminoacid.values())]
 	
 	return pfm
-	#print("função para calcular a matrix pssm")
-
 
 def main():
 
